@@ -3,8 +3,8 @@ using FinanceAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
-
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AppDataContext>();
 var app = builder.Build();
 
 // Endopints
@@ -23,7 +23,7 @@ app.MapGet("/users",
 app.MapPost("/users/register",
     ([FromBody] User user, [FromServices] AppDataContext ctx) =>
     {
-        if(user.Name == null){
+        if(user.Name != null){
             ctx.Users.Add(user);
             ctx.SaveChanges();
             return Results.Created("", user);
