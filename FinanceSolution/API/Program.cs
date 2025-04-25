@@ -79,7 +79,11 @@ app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromSe
      if(userUpdate.Name == null){
         return Results.BadRequest("Usuario não existe!");
     }
-
+           // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
+        var hash = sha256.ComputeHash(bytes);
+        user.Password = Convert.ToBase64String(hash);
 
    if   (userUpdate != null){
         userUpdate.Name = user.Name;
@@ -105,5 +109,11 @@ app.MapDelete("/api/users/{id}", ([FromRoute] int id, [FromServices] AppDataCont
     ctx.SaveChanges();
     return Results.NoContent();
 });
+
+
+
+
+
+//
 
 app.Run();
