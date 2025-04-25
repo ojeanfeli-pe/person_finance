@@ -156,53 +156,128 @@ app.MapGet("/api/transactions", ([FromServices] AppDataContext ctx) =>
 });
 
 //POST para cadastrar as transacoes
-app.MapPost("/api/transactions", ([FromBody] Transaction transaction,[FromServices] AppDataContext ctx) =>{
+// app.MapPost("/api/transactions", ([FromBody] Transaction transaction,[FromServices] AppDataContext ctx) =>{
         
-        if (transaction.Amount <= 0){
-            return Results.BadRequest("O valor da transação deve ser maior que zero.");
-        }
+//         if (transaction.Amount <= 0){
+//             return Results.BadRequest("O valor da transação deve ser maior que zero.");
+//         }
 
-        if (transaction.Type != "entrada" && transaction.Type != "saida"){
-            return Results.BadRequest("Tipo de transação deve ser 'entrada' ou 'saida'.");
-        }
+//         if (transaction.Type != "entrada" && transaction.Type != "saida"){
+//             return Results.BadRequest("Tipo de transação deve ser 'entrada' ou 'saida'.");
+//         }
 
-            // Busca o usuário
-        var user = ctx.Users.Find(transaction.UserId);
-        if (user == null)
-        {
-            return Results.BadRequest("Usuário não encontrado.");
-        }
+//             // Busca o usuário
+//         var user = ctx.Users.Find(transaction.UserId);
+//         if (user == null)
+//         {
+//             return Results.BadRequest("Usuário não encontrado.");
+//         }
 
 
-        // Cria a transação associando com o usuário
-    var transactionUser = new Transaction
+//         // Cria a transação associando com o usuário
+//     var transactionUser = new Transaction
+//     {
+//         Description = transaction.Description,
+//         Amount = transaction.Amount,
+//         Date = transaction.Date,
+//         Type = transaction.Type,
+//         CategoryId = transaction.CategoryId,
+//         UserId = transaction.UserId
+//     };
+
+//     ctx.Transactions.Add(transaction);
+//     ctx.SaveChanges();
+
+//      // Retorna com o nome do usuário e o ID
+//     var finalTransaction = new
+//     {
+//         transaction.Id,
+//         transaction.Description,
+//         transaction.Amount,
+//         transaction.Date,
+//         transaction.Type,
+//         transaction.CategoryId,
+//         transaction.UserId,
+//         UserName = user.Name
+//     };
+//     return Results.Created($"/api/transactions/{transaction.Id}", finalTransaction);
+
+
+// });
+
+
+
+app.MapGet("/api/transactions/user/{userId}", ([FromRoute] int userId, [FromServices] AppDataContext ctx) =>
+{
+    var userExists = ctx.Users.Any(u => u.Id == userId);
+    if (!userExists)
     {
-        Description = transaction.Description,
-        Amount = transaction.Amount,
-        Date = transaction.Date,
-        Type = transaction.Type,
-        CategoryId = transaction.CategoryId,
-        UserId = transaction.UserId
-    };
+        return Results.NotFound("Usuário não encontrado.");
+    }
+
+    var transactions = ctx.Transactions
+        .Where(t => t.UserId == userId)
+        .Join(ctx.Categories,
+              t => t.CategoryId,
+              c => c.Id,
+              (t, c) => new {
+                  t.Id,
+                  t.Description,
+                  t.Amount,
+                  t.Date,
+                  t.Type,
+                  t.UserId,
+                  CategoryName = c.Name
+              })
+        .ToList();
+
+    return Results.Ok(transactions);
+});
+
+
+app.MapPost("/api/transactions", ([FromBody] Transaction transaction, [FromServices] AppDataContext ctx) =>
+{
+    // Verifica se o usuário existe
+    var user = ctx.Users.Find(transaction.UserId);
+    if (user == null)
+    {
+        return Results.BadRequest("Usuário não encontrado.");
+    }
+
+    // Verifica se a categoria existe
+    var category = ctx.Categories.Find(transaction.CategoryId);
+    if (category == null)
+    {
+        return Results.BadRequest("Categoria não encontrada.");
+    }
 
     ctx.Transactions.Add(transaction);
     ctx.SaveChanges();
 
-     // Retorna com o nome do usuário e o ID
-    var finalTransaction = new
-    {
-        transaction.Id,
-        transaction.Description,
-        transaction.Amount,
-        transaction.Date,
-        transaction.Type,
-        transaction.CategoryId,
-        transaction.UserId,
-        UserName = user.Name
-    };
-    return Results.Created($"/api/transactions/{transaction.Id}", finalTransaction);
-
-
+    return Results.Created($"/api/transactions/{transaction.Id}", transaction);
 });
+
+//DELETE transctions
+
+app.MapDelete("/api/transactions/{transactionId}/user/{userId}", (
+    [FromRoute] int transactionId,
+    [FromRoute] int userId,
+    [FromServices] AppDataContext ctx) =>
+{
+    var transaction = ctx.Transactions
+        .FirstOrDefault(t => t.Id == transactionId && t.UserId == userId);
+
+    if (transaction == null)
+    {
+        return Results.NotFound("Transação não encontrada para este usuário.");
+    }
+
+    ctx.Transactions.Remove(transaction);
+    ctx.SaveChanges();
+
+    return Results.Ok("Transação removida com sucesso.");
+});
+
+
 
 app.Run();

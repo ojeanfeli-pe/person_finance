@@ -1,6 +1,9 @@
 ### GET LISTAR TODAS AS TRANSACOES
 GET http://localhost:5000/api/transactions
 
+### GET LISTAR SOMENTE DO USUARIO
+GET http://localhost:5000/api/transactions/user/3
+
 
 ### POST cadastrar uma transacao
 
@@ -8,10 +11,14 @@ POST http://localhost:5000/api/transactions
 Content-Type: application/json
 
 {
-    "description": "Salário",
-    "amount": 3500,
-    "date": "2025-04-25T00:00:00",
-    "type": "entrada",
-    "categoryId": 1,
-    "userId": 3
+  "description": "Netflix",
+  "amount": 39.90,
+  "date": "2025-04-25T00:00:00",
+  "type": "saida",
+  "categoryId": 1,
+  "userId": 3  
 }
+
+### DELETE da transacao id e depois id do user
+
+DELETE http://localhost:5000/api/transactions/6/user/3
