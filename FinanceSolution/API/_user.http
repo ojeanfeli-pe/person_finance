@@ -1,7 +1,7 @@
-### GET
+### GET LISTAR usuario
 GET http://localhost:5000/api/users
 
-### POST
+### POST cadastrar usuario
 
 POST http://localhost:5000/api/users/register
 Content-Type: application/json
@@ -11,7 +11,7 @@ Content-Type: application/json
     "Password": "123456"
 }
 
-### PUT
+### PUT atualizar o usuario
 
 PUT http://localhost:5000/api/users/3
 Content-Type: application/json
@@ -21,8 +21,18 @@ Content-Type: application/json
     "Password": "123456"
 }
 
+### POST LOGIN DO USUARIO
 
-### Delete
+POST  http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "Name": "pedro",
+    "Password": "123456"
+}
+
+
+### Deletar o usuario
 
 DELETE  http://localhost:5000/api/users/1
 Content-Type: application/json
@@ -30,5 +40,3 @@ Content-Type: application/json
 {
 
 }
-
-

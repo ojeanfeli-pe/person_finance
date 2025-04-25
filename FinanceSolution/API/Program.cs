@@ -70,6 +70,30 @@ app.MapPost("/api/users/register",
         return Results.Created("", user);
 });
 
+
+// Login de usuário
+app.MapPost("/api/users/login", 
+    ([FromBody] User login,[FromServices] AppDataContext ctx) =>{
+
+        var user = ctx.Users.FirstOrDefault(u => u.Name == login.Name); //FirstOrDefault retorna o primeiro que encontrar ou null se não achar ninguém
+
+        if (user == null){
+            return Results.BadRequest("Usuário ou senha inválidos.");
+        }
+
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(login.Password ?? ""); // Transforma a senha digitada (string)
+        var hash = sha256.ComputeHash(bytes); // Calcula o hash SHA256 da senha em bytes
+        var hashedInputPassword = Convert.ToBase64String(hash); //Converte esse hash (que é binário) em uma string base64 (mesmo formato que foi salvo no cadastro)
+
+        if (user.Password != hashedInputPassword){
+            return Results.BadRequest("Usuário ou senha inválidos.");
+        }
+
+        return Results.Ok("Login realizado com sucesso.");
+});
+
+
 // Atualiza o usuario e senha pelo ID
 
 app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromServices] AppDataContext ctx) =>{
