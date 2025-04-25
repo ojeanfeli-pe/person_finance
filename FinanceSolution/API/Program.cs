@@ -109,6 +109,8 @@ app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromSe
         var hash = sha256.ComputeHash(bytes);
         user.Password = Convert.ToBase64String(hash);
 
+
+
    if   (userUpdate != null){
         userUpdate.Name = user.Name;
         userUpdate.Password = user.Password;
@@ -116,6 +118,7 @@ app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromSe
         ctx.SaveChanges();
         return Results.Ok(userUpdate);
    }
+
    return Results.NotFound();
 
 });
@@ -129,15 +132,77 @@ app.MapDelete("/api/users/{id}", ([FromRoute] int id, [FromServices] AppDataCont
     if(user == null){
         return Results.NotFound();
     }
+
+
     ctx.Users.Remove(user);
     ctx.SaveChanges();
     return Results.NoContent();
 });
 
 
+//   TRANSACTIONS
+
+// GET para listar todas as transacoes
+app.MapGet("/api/transactions", ([FromServices] AppDataContext ctx) =>
+{
+    var transactions = ctx.Transactions.ToList();
+
+    if (transactions.Count == 0)
+    {
+        return Results.NotFound("Nenhuma transação encontrada.");
+    }
+
+    return Results.Ok(transactions);
+});
+
+//POST para cadastrar as transacoes
+app.MapPost("/api/transactions", ([FromBody] Transaction transaction,[FromServices] AppDataContext ctx) =>{
+        
+        if (transaction.Amount <= 0){
+            return Results.BadRequest("O valor da transação deve ser maior que zero.");
+        }
+
+        if (transaction.Type != "entrada" && transaction.Type != "saida"){
+            return Results.BadRequest("Tipo de transação deve ser 'entrada' ou 'saida'.");
+        }
+
+            // Busca o usuário
+        var user = ctx.Users.Find(transaction.UserId);
+        if (user == null)
+        {
+            return Results.BadRequest("Usuário não encontrado.");
+        }
 
 
+        // Cria a transação associando com o usuário
+    var transactionUser = new Transaction
+    {
+        Description = transaction.Description,
+        Amount = transaction.Amount,
+        Date = transaction.Date,
+        Type = transaction.Type,
+        CategoryId = transaction.CategoryId,
+        UserId = transaction.UserId
+    };
 
-//
+    ctx.Transactions.Add(transaction);
+    ctx.SaveChanges();
+
+     // Retorna com o nome do usuário e o ID
+    var finalTransaction = new
+    {
+        transaction.Id,
+        transaction.Description,
+        transaction.Amount,
+        transaction.Date,
+        transaction.Type,
+        transaction.CategoryId,
+        transaction.UserId,
+        UserName = user.Name
+    };
+    return Results.Created($"/api/transactions/{transaction.Id}", finalTransaction);
+
+
+});
 
 app.Run();
