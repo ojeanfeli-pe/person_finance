@@ -1,13 +1,34 @@
 ### GET
-GET http://localhost:5000/users
+GET http://localhost:5000/api/users
 
 ### POST
 
-POST http://localhost:5000/users/register
+POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
     "Name": "pedro",
     "Password": "123456"
 }
+
+### PUT
+
+PUT http://localhost:5000/api/users/1
+Content-Type: application/json
+
+{
+    "Name": "Lucas",
+    "Password": "123456"
+}
+
+
+### Delete
+
+DELETE  http://localhost:5000/api/users/2
+Content-Type: application/json
+
+{
+
+}
+
 
