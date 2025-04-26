@@ -278,6 +278,60 @@ app.MapDelete("/api/transactions/{transactionId}/user/{userId}", (
     return Results.Ok("Transação removida com sucesso.");
 });
 
+// CATEGORIAS
 
+// GET: Listar todas as categorias
+app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
+{
+    var categories = ctx.Categories.ToList();
+
+    if (!categories.Any())
+    {
+        return Results.NotFound("Nenhuma categoria encontrada.");
+    }
+
+    return Results.Ok(categories);
+});
+
+// POST: Criar uma nova categoria
+app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
+{
+    ctx.Categories.Add(category);
+    ctx.SaveChanges();
+    return Results.Created($"/api/categories/{category.Id}", category);
+});
+
+// PUT: Atualizar uma categoria existente
+app.MapPut("/api/categories/{id}", ([FromRoute] int id, [FromBody] Category categoryUpdate, [FromServices] AppDataContext ctx) =>
+{
+    var category = ctx.Categories.Find(id);
+
+    if (category == null)
+    {
+        return Results.NotFound("Categoria não encontrada.");
+    }
+
+    category.Name = categoryUpdate.Name;
+    ctx.Categories.Update(category);
+    ctx.SaveChanges();
+
+    return Results.Ok(category);
+});
+
+// DELETE: Remover uma categoria
+app.MapDelete("/api/categories/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>
+{
+    var category = ctx.Categories.Find(id);
+
+    if (category == null)
+    {
+        return Results.NotFound("Categoria não encontrada.");
+    }
+
+    ctx.Categories.Remove(category);
+    ctx.SaveChanges();
+
+    return Results.Ok("Categoria removida com sucesso.");
+});
 
 app.Run();
