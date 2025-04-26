@@ -1,0 +1,6 @@
+### GET = BUSCAR CATEGORIA
+
+GET http://localhost:5000/api/categories
+
+### POST = Criar nova categoria
+

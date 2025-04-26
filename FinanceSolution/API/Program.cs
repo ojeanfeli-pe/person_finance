@@ -43,7 +43,12 @@ app.UseSwaggerUI();
 // GET: Listar todas as categorias
 app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
 {
-    var categories = ctx.Categories.ToList();
+    var categories = ctx.Categories
+        .Select(c => new {
+            c.Id,
+            c.Name
+        })
+        .ToList();
 
     if (!categories.Any())
     {
@@ -53,46 +58,7 @@ app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
     return Results.Ok(categories);
 });
 
-// POST: Criar uma nova categoria
-app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
-{
-    ctx.Categories.Add(category);
-    ctx.SaveChanges();
-    return Results.Created($"/api/categories/{category.Id}", category);
-});
 
-// PUT: Atualizar uma categoria existente
-app.MapPut("/api/categories/{id}", ([FromRoute] int id, [FromBody] Category categoryUpdate, [FromServices] AppDataContext ctx) =>
-{
-    var category = ctx.Categories.Find(id);
-
-    if (category == null)
-    {
-        return Results.NotFound("Categoria não encontrada.");
-    }
-
-    category.Name = categoryUpdate.Name;
-    ctx.Categories.Update(category);
-    ctx.SaveChanges();
-
-    return Results.Ok(category);
-});
-
-// DELETE: Remover uma categoria
-app.MapDelete("/api/categories/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>
-{
-    var category = ctx.Categories.Find(id);
-
-    if (category == null)
-    {
-        return Results.NotFound("Categoria não encontrada.");
-    }
-
-    ctx.Categories.Remove(category);
-    ctx.SaveChanges();
-
-    return Results.Ok("Categoria removida com sucesso.");
-});
 //   TRANSACTIONS
 
 // GET para listar todas as transacoes
@@ -107,7 +73,6 @@ app.MapGet("/api/transactions", ([FromServices] AppDataContext ctx) =>
 
     return Results.Ok(transactions);
 });
-
 
 app.MapGet("/api/transactions/user/{userId}", ([FromRoute] int userId, [FromServices] AppDataContext ctx) =>
 {
@@ -135,7 +100,6 @@ app.MapGet("/api/transactions/user/{userId}", ([FromRoute] int userId, [FromServ
 
     return Results.Ok(transactions);
 });
-
 
 app.MapPost("/api/transactions", ([FromBody] Transaction transaction, [FromServices] AppDataContext ctx) =>
 {
