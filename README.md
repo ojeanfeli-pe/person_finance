@@ -74,21 +74,24 @@ As requisições podem ser feitas pelo [Swagger](https://localhost:5001/swagger)
 ---
 
 ## 📂 Estrutura do Projeto
-├── **Data**
-│   └── AppDataContext.cs
-│── **Migrations**
-├── **Models**
-│   ├── Category.cs
-│   ├── Transaction.cs
-│   └── User.cs
-│
-├── **Requests**
-│   ├── _categories.http
-│   ├── _transactions.http
-│   └── _users.http
-│
-├── **Program.cs**
-└── **README.md**
+
+- ├── **Data**
+- │   └── AppDataContext.cs  
+- │  
+- ├── **Migrations**  
+- │  
+- ├── **Models**  
+- │   ├── Category.cs  
+- │   ├── Transaction.cs  
+- │   └── User.cs  
+- │  
+- ├── **Requests**  
+- │   ├── _categories.http  
+- │   ├── _transactions.http  
+- │   └── _users.http  
+- │  
+- ├── **Program.cs**  
+
 --- 
 ## 👨‍💻 Desenvolvedores
 
