@@ -47,6 +47,7 @@ cd person_finance
 ```
 ### 2. Instale as dependências
 Certifique-se de ter o **.NET SDK** instalado.
+
 Instale essas dependências:
 
 ```bash
