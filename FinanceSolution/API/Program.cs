@@ -38,108 +38,61 @@ app.UseSwaggerUI();
 
 // Endopints dos usuarios
 
-// GET: users = Listar todos os users cadastrados
-app.MapGet("/api/users", 
-    ([FromServices] AppDataContext ctx) => 
+// CATEGORIAS
+
+// GET: Listar todas as categorias
+app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
+{
+    var categories = ctx.Categories.ToList();
+
+    if (!categories.Any())
     {
-        if(ctx.Users.Any()){
-            return Results.Ok(ctx.Users.ToList());
-        }
-        return Results.NotFound();
-});
-
-// Post: users/register = Registrar e salver um user
-app.MapPost("/api/users/register",
-    ([FromBody] User user, [FromServices] AppDataContext ctx) =>
-    {
-        // Verifica se o nome já existe
-        if (ctx.Users.Any(u => u.Name == user.Name))
-        {
-            return Results.BadRequest("O usuário já existe.");
-        }
-
-        // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
-        var hash = sha256.ComputeHash(bytes);
-        user.Password = Convert.ToBase64String(hash);
-
-        ctx.Users.Add(user);
-        ctx.SaveChanges();
-
-        return Results.Created("", user);
-});
-
-
-// Login de usuário
-app.MapPost("/api/users/login", 
-    ([FromBody] User login,[FromServices] AppDataContext ctx) =>{
-
-        var user = ctx.Users.FirstOrDefault(u => u.Name == login.Name); //FirstOrDefault retorna o primeiro que encontrar ou null se não achar ninguém
-
-        if (user == null){
-            return Results.BadRequest("Usuário ou senha inválidos.");
-        }
-
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(login.Password ?? ""); // Transforma a senha digitada (string)
-        var hash = sha256.ComputeHash(bytes); // Calcula o hash SHA256 da senha em bytes
-        var hashedInputPassword = Convert.ToBase64String(hash); //Converte esse hash (que é binário) em uma string base64 (mesmo formato que foi salvo no cadastro)
-
-        if (user.Password != hashedInputPassword){
-            return Results.BadRequest("Usuário ou senha inválidos.");
-        }
-
-        return Results.Ok("Login realizado com sucesso.");
-});
-
-
-// Atualiza o usuario e senha pelo ID
-
-app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromServices] AppDataContext ctx) =>{
-
-    User? userUpdate = ctx.Users.Find(id);
-
-     if(userUpdate.Name == null){
-        return Results.BadRequest("Usuario não existe!");
-    }
-           // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
-        var hash = sha256.ComputeHash(bytes);
-        user.Password = Convert.ToBase64String(hash);
-
-
-
-   if   (userUpdate != null){
-        userUpdate.Name = user.Name;
-        userUpdate.Password = user.Password;
-        ctx.Users.Update(userUpdate);
-        ctx.SaveChanges();
-        return Results.Ok(userUpdate);
-   }
-
-   return Results.NotFound();
-
-});
-
-//Deletar usuario e senha pelo ID
-
-app.MapDelete("/api/users/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>{
-    
-    User? user = ctx.Users.Find(id);
-    
-    if(user == null){
-        return Results.NotFound();
+        return Results.NotFound("Nenhuma categoria encontrada.");
     }
 
+    return Results.Ok(categories);
+});
 
-    ctx.Users.Remove(user);
+// POST: Criar uma nova categoria
+app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
+{
+    ctx.Categories.Add(category);
     ctx.SaveChanges();
-    return Results.NoContent();
+    return Results.Created($"/api/categories/{category.Id}", category);
 });
 
+// PUT: Atualizar uma categoria existente
+app.MapPut("/api/categories/{id}", ([FromRoute] int id, [FromBody] Category categoryUpdate, [FromServices] AppDataContext ctx) =>
+{
+    var category = ctx.Categories.Find(id);
 
+    if (category == null)
+    {
+        return Results.NotFound("Categoria não encontrada.");
+    }
+
+    category.Name = categoryUpdate.Name;
+    ctx.Categories.Update(category);
+    ctx.SaveChanges();
+
+    return Results.Ok(category);
+});
+
+// DELETE: Remover uma categoria
+app.MapDelete("/api/categories/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>
+{
+    var category = ctx.Categories.Find(id);
+
+    if (category == null)
+    {
+        return Results.NotFound("Categoria não encontrada.");
+    }
+
+    ctx.Categories.Remove(category);
+    ctx.SaveChanges();
+
+    return Results.Ok("Categoria removida com sucesso.");
+});
 //   TRANSACTIONS
 
 // GET para listar todas as transacoes
@@ -278,60 +231,104 @@ app.MapDelete("/api/transactions/{transactionId}/user/{userId}", (
     return Results.Ok("Transação removida com sucesso.");
 });
 
-// CATEGORIAS
-
-// GET: Listar todas as categorias
-app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
-{
-    var categories = ctx.Categories.ToList();
-
-    if (!categories.Any())
+// GET: users = Listar todos os users cadastrados
+app.MapGet("/api/users", 
+    ([FromServices] AppDataContext ctx) => 
     {
-        return Results.NotFound("Nenhuma categoria encontrada.");
-    }
-
-    return Results.Ok(categories);
+        if(ctx.Users.Any()){
+            return Results.Ok(ctx.Users.ToList());
+        }
+        return Results.NotFound();
 });
 
-// POST: Criar uma nova categoria
-app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
-{
-    ctx.Categories.Add(category);
-    ctx.SaveChanges();
-    return Results.Created($"/api/categories/{category.Id}", category);
+// Post: users/register = Registrar e salver um user
+app.MapPost("/api/users/register",
+    ([FromBody] User user, [FromServices] AppDataContext ctx) =>
+    {
+        // Verifica se o nome já existe
+        if (ctx.Users.Any(u => u.Name == user.Name))
+        {
+            return Results.BadRequest("O usuário já existe.");
+        }
+
+        // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
+        var hash = sha256.ComputeHash(bytes);
+        user.Password = Convert.ToBase64String(hash);
+
+        ctx.Users.Add(user);
+        ctx.SaveChanges();
+
+        return Results.Created("", user);
 });
 
-// PUT: Atualizar uma categoria existente
-app.MapPut("/api/categories/{id}", ([FromRoute] int id, [FromBody] Category categoryUpdate, [FromServices] AppDataContext ctx) =>
-{
-    var category = ctx.Categories.Find(id);
+// Login de usuário
+app.MapPost("/api/users/login", 
+    ([FromBody] User login,[FromServices] AppDataContext ctx) =>{
 
-    if (category == null)
-    {
-        return Results.NotFound("Categoria não encontrada.");
-    }
+        var user = ctx.Users.FirstOrDefault(u => u.Name == login.Name); //FirstOrDefault retorna o primeiro que encontrar ou null se não achar ninguém
 
-    category.Name = categoryUpdate.Name;
-    ctx.Categories.Update(category);
-    ctx.SaveChanges();
+        if (user == null){
+            return Results.BadRequest("Usuário ou senha inválidos.");
+        }
 
-    return Results.Ok(category);
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(login.Password ?? ""); // Transforma a senha digitada (string)
+        var hash = sha256.ComputeHash(bytes); // Calcula o hash SHA256 da senha em bytes
+        var hashedInputPassword = Convert.ToBase64String(hash); //Converte esse hash (que é binário) em uma string base64 (mesmo formato que foi salvo no cadastro)
+
+        if (user.Password != hashedInputPassword){
+            return Results.BadRequest("Usuário ou senha inválidos.");
+        }
+
+        return Results.Ok("Login realizado com sucesso.");
 });
 
-// DELETE: Remover uma categoria
-app.MapDelete("/api/categories/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>
-{
-    var category = ctx.Categories.Find(id);
 
-    if (category == null)
-    {
-        return Results.NotFound("Categoria não encontrada.");
+// Atualiza o usuario e senha pelo ID
+
+app.MapPut("/api/users/{id}", ([FromRoute] int id, [FromBody] User user, [FromServices] AppDataContext ctx) =>{
+
+    User? userUpdate = ctx.Users.Find(id);
+
+     if(userUpdate.Name == null){
+        return Results.BadRequest("Usuario não existe!");
+    }
+           // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
+        var hash = sha256.ComputeHash(bytes);
+        user.Password = Convert.ToBase64String(hash);
+
+
+
+   if   (userUpdate != null){
+        userUpdate.Name = user.Name;
+        userUpdate.Password = user.Password;
+        ctx.Users.Update(userUpdate);
+        ctx.SaveChanges();
+        return Results.Ok(userUpdate);
+   }
+
+   return Results.NotFound();
+
+});
+
+//Deletar usuario e senha pelo ID
+
+app.MapDelete("/api/users/{id}", ([FromRoute] int id, [FromServices] AppDataContext ctx) =>{
+    
+    User? user = ctx.Users.Find(id);
+    
+    if(user == null){
+        return Results.NotFound();
     }
 
-    ctx.Categories.Remove(category);
-    ctx.SaveChanges();
 
-    return Results.Ok("Categoria removida com sucesso.");
+    ctx.Users.Remove(user);
+    ctx.SaveChanges();
+    return Results.NoContent();
 });
 
 app.Run();
