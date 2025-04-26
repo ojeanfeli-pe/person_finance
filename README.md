@@ -1,121 +1,101 @@
-📈 Controle de Finanças API
-Uma API simples e eficiente para gerenciar finanças pessoais, permitindo o cadastro de usuários, categorias e transações financeiras.
+# 💸 Finance API - Controle de Finanças Pessoais
 
-Ideal para quem deseja controlar entradas e saídas financeiras de forma prática e segura!
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build](https://img.shields.io/badge/Build-passing-brightgreen)](https://github.com/ojeanfeli-pe/person_finance)
+[![.NET](https://img.shields.io/badge/.NET-blue)](https://dotnet.microsoft.com/en-us/download)
 
-🚀 Tecnologias Utilizadas
-C#
+Bem-vindo(a) ao projeto **Finance API**!  
+Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e prática, proporcionando controle de categorias, usuários e transações.
 
-ASP.NET Core Minimal API
+---
 
-Entity Framework Core
+## ✨ Funcionalidades Principais
 
-Swagger para documentação
+### 👤 **Autenticação Segura**
+- 🔑 Cadastro e login de usuários
+- 🛡️ Criptografia SHA256 para proteção de senhas
 
-Git e GitHub para versionamento
+### 💳 **Gestão Financeira**
+- ✅ **CRUD completo de transações** (entradas e saídas)
+- 🏷️ **Categorização de gastos** com CRUD de categorias
+- 🔍 **Filtros inteligentes** para consulta de transações por usuário
 
-🛠️ Como Rodar o Projeto
-1. Pré-requisitos
-Antes de mais nada, certifique-se de ter instalado:
+### 📊 **Relatórios e Documentação**
+- 📚 Documentação automática via Swagger UI
+- ⚙️ API Minimal com endpoints bem definidos
 
-.NET SDK 8.0+ (obrigatório)
+---
 
-Git instalado (Download aqui) (obrigatório)
+## 🛠 Stack Tecnológica
 
-Para confirmar se o .NET está instalado, digite no terminal:
+| Categoria        | Tecnologias                                                 |
+|-----------------|-------------------------------------------------------------|
+| **Backend** | **.NET**, **ASP.NET Core Minimal APIs** |
+| **Banco** | **Entity Framework Core** (Code First)                     |
+| **Autenticação**| **SHA256** para hash de senhas                             |
+| **Documentação**| **Swagger UI** |
+| **Versionamento**| **Git** + **GitHub** |
+---
 
-bash
-Copiar
-Editar
-dotnet --version
-Se aparecer a versão (tipo 8.0.100), está tudo certo!
+## 🚀 Como Rodar o Projeto Localmente
 
-2. Clone o repositório
-bash
-Copiar
-Editar
+### 1. Clone o repositório
+
+```bash
 git clone https://github.com/ojeanfeli-pe/person_finance.git
 cd person_finance
-3. Instale as dependências
-bash
-Copiar
-Editar
-dotnet restore
-Se faltar algum pacote (por exemplo Entity Framework ou Swagger), instale manualmente:
+```
+### 2. Instale as dependências
+Certifique-se de ter o **.NET SDK** instalado.
+Se necessário, instale a ferramenta de Entity Framework:
 
-bash
-Copiar
-Editar
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Swashbuckle.AspNetCore
-4. Configure o banco de dados
-Você precisará aplicar a migração inicial para criar as tabelas no banco:
+```bash
+dotnet tool install --global dotnet-ef
+```
+### 3. Crie o banco de dados
 
-bash
-Copiar
-Editar
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-(Se preferir, pode configurar manualmente também — te ajudo com isso se quiser! 🔥)
+Execute o comando para aplicar as migrações (se existir uma pasta `Migrations` no projeto):
 
-5. Rode o projeto
-bash
-Copiar
-Editar
+```bash
+1 - dotnet ef migrations add InitialCreate
+2 - dotnet ef database update
+```
+
+### 4. Execute a aplicação
+
+```bash
 dotnet run
-A API vai iniciar em algo como:
+```
 
-bash
-Copiar
-Editar
-https://localhost:5001/swagger/index.html
-Basta abrir esse link no navegador para acessar a documentação interativa do Swagger!
+#### Será gerada a porta: https://localhost:5001 para realizar as requisições.
 
-📂 Estrutura do Projeto
-pgsql
-Copiar
-Editar
-├── Data
+As requisições podem ser feitas pelo [Swagger](https://localhost:5001/swagger), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
+
+---
+
+## 📂 Estrutura do Projeto
+├── **Data**
 │   └── AppDataContext.cs
-├── Models
+│── **Migrations**
+├── **Models**
 │   ├── Category.cs
 │   ├── Transaction.cs
 │   └── User.cs
-├── Requests
+│
+├── **Requests**
 │   ├── _categories.http
 │   ├── _transactions.http
 │   └── _users.http
-├── Program.cs
-📚 Endpoints Disponíveis
-🧑‍💼 Usuários
+│
+├── **Program.cs**
+└── **README.md**
+--- 
+## 👨‍💻 Desenvolvedores
 
-Método	Rota	Descrição
-GET	/api/users	Listar todos os usuários
-POST	/api/users/register	Registrar novo usuário
-POST	/api/users/login	Login de usuário
-PUT	/api/users/{id}	Atualizar usuário
-DELETE	/api/users/{id}	Deletar usuário
-🗂️ Categorias
+- [Pablo Pasquim](https://github.com/pablopasquim)
+- [Jean Moreira](https://github.com/ojeanfeli-pe)
+- [André Nichelle](https://github.com/Nichele135)
 
-Método	Rota	Descrição
-GET	/api/categories	Listar todas as categorias
-💸 Transações
 
-Método	Rota	Descrição
-GET	/api/transactions	Listar todas as transações
-GET	/api/transactions/user/{userId}	Listar transações de um usuário
-POST	/api/transactions	Criar nova transação
-DELETE	/api/transactions/{transactionId}/user/{userId}	Deletar transação de um usuário
-👨‍💻 Desenvolvedores
-
-Nome	GitHub
-Pablo Pasquim	@pablopasquim
-Jean Moreira	@ojeanfeli-pe
-André Nichelle @Nichele135
-
-🎯 Finalizando
-Controle de Finanças API é um projeto focado em simplicidade e expansão fácil.
-Explore, modifique e use para aprender mais sobre ASP.NET Minimal API, EF Core e boas práticas de backend!
 
 
