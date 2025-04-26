@@ -108,57 +108,6 @@ app.MapGet("/api/transactions", ([FromServices] AppDataContext ctx) =>
     return Results.Ok(transactions);
 });
 
-//POST para cadastrar as transacoes
-// app.MapPost("/api/transactions", ([FromBody] Transaction transaction,[FromServices] AppDataContext ctx) =>{
-        
-//         if (transaction.Amount <= 0){
-//             return Results.BadRequest("O valor da transação deve ser maior que zero.");
-//         }
-
-//         if (transaction.Type != "entrada" && transaction.Type != "saida"){
-//             return Results.BadRequest("Tipo de transação deve ser 'entrada' ou 'saida'.");
-//         }
-
-//             // Busca o usuário
-//         var user = ctx.Users.Find(transaction.UserId);
-//         if (user == null)
-//         {
-//             return Results.BadRequest("Usuário não encontrado.");
-//         }
-
-
-//         // Cria a transação associando com o usuário
-//     var transactionUser = new Transaction
-//     {
-//         Description = transaction.Description,
-//         Amount = transaction.Amount,
-//         Date = transaction.Date,
-//         Type = transaction.Type,
-//         CategoryId = transaction.CategoryId,
-//         UserId = transaction.UserId
-//     };
-
-//     ctx.Transactions.Add(transaction);
-//     ctx.SaveChanges();
-
-//      // Retorna com o nome do usuário e o ID
-//     var finalTransaction = new
-//     {
-//         transaction.Id,
-//         transaction.Description,
-//         transaction.Amount,
-//         transaction.Date,
-//         transaction.Type,
-//         transaction.CategoryId,
-//         transaction.UserId,
-//         UserName = user.Name
-//     };
-//     return Results.Created($"/api/transactions/{transaction.Id}", finalTransaction);
-
-
-// });
-
-
 
 app.MapGet("/api/transactions/user/{userId}", ([FromRoute] int userId, [FromServices] AppDataContext ctx) =>
 {
@@ -251,7 +200,9 @@ app.MapPost("/api/users/register",
             return Results.BadRequest("O usuário já existe.");
         }
 
-        // Gera um código embaralhado (hash) da senha usando SHA256. Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
+        var plainPassword = user.Password;
+
+        // Gera um código (hash). Substitui a senha original pelo hash. Salva no banco com nome e senha já protegida.
         using var sha256 = SHA256.Create();
         var bytes = Encoding.UTF8.GetBytes(user.Password ?? "");
         var hash = sha256.ComputeHash(bytes);
@@ -259,6 +210,9 @@ app.MapPost("/api/users/register",
 
         ctx.Users.Add(user);
         ctx.SaveChanges();
+
+        // 👇 Novo! Mostra no console o usuário e a senha normal
+        Console.WriteLine($"Usuário {user.Name}' cadastrado com sucesso! Senha: '{plainPassword}'");
 
         return Results.Created("", user);
 });
