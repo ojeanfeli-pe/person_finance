@@ -47,11 +47,20 @@ cd person_finance
 ```
 ### 2. Instale as dependências
 Certifique-se de ter o **.NET SDK** instalado.
-Se necessário, instale a ferramenta de Entity Framework:
+Instale essas dependências:
 
 ```bash
 dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
+
+Confira se o Entity Framework foi instalado com sucesso
+
+```bash
+dotnet-ef
+```
+
 ### 3. Crie o banco de dados
 
 Execute o comando para aplicar as migrações (se existir uma pasta `Migrations` no projeto):
