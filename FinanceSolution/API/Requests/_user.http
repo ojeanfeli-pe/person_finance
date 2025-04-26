@@ -7,13 +7,8 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
-    "Name": "Zelaide",
-    "Password": "1234"
-=======
     "Name": "pablo",
     "Password": "2003"
->>>>>>> f739930851ae375cd7acc3b83bb5025d7bbbb498
 }
 
 ### PUT atualizar o usuario
@@ -22,13 +17,8 @@ PUT http://localhost:5000/api/users/3
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
-    "Name": "Anabelle",
-    "Password": "12345"
-=======
     "Name": "pablo",
     "Password": "2004"
->>>>>>> f739930851ae375cd7acc3b83bb5025d7bbbb498
 }
 
 ### POST LOGIN DO USUARIO
@@ -37,19 +27,14 @@ POST  http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
-    "Name": "Bruna",
-    "Password": "1234"
-=======
     "Name": "pablo",
     "Password": "2004"
->>>>>>> f739930851ae375cd7acc3b83bb5025d7bbbb498
 }
 
 
 ### Deletar o usuario
 
-DELETE  http://localhost:5000/api/users/4
+DELETE  http://localhost:5000/api/users/1
 Content-Type: application/json
 
 {
