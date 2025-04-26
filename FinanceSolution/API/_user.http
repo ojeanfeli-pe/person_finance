@@ -7,8 +7,8 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-    "Name": "pedro",
-    "Password": "123456"
+    "Name": "pablo",
+    "Password": "2003"
 }
 
 ### PUT atualizar o usuario
@@ -17,8 +17,8 @@ PUT http://localhost:5000/api/users/3
 Content-Type: application/json
 
 {
-    "Name": "Lucas",
-    "Password": "123456"
+    "Name": "pablo",
+    "Password": "2004"
 }
 
 ### POST LOGIN DO USUARIO
@@ -27,8 +27,8 @@ POST  http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-    "Name": "pedro",
-    "Password": "123456"
+    "Name": "pablo",
+    "Password": "2004"
 }
 
 

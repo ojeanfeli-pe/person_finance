@@ -29,6 +29,38 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Necessidades"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Contas"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mercado"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Aluguel"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Restaurante"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Assinaturas"
+                        });
                 });
 
             modelBuilder.Entity("FinanceAPI.Models.Transaction", b =>
