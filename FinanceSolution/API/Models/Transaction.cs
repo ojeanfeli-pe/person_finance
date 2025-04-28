@@ -9,6 +9,4 @@ public class Transaction
     public string ?Type { get; set; }  // Tipo: Entrada ou saida
     public int CategoryId { get; set; } //  Id da categoria
     public int UserId { get; set; } // Id do usuário
-
-    
 }
