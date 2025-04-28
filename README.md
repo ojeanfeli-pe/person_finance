@@ -80,7 +80,7 @@ dotnet run
 
 #### Será gerada a porta: https://localhost:5000 para realizar as requisições.
 
-As requisições podem ser feitas pelo [Swagger](https://localhost:5000/swagger), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
+As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/index.html), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
 
 ---
 
