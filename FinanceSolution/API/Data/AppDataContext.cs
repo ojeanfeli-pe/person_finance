@@ -5,8 +5,10 @@ namespace FinanceAPI.Data;
 
 public class AppDataContext : DbContext
 {
-
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+       optionsBuilder.UseSqlite("Data Source=finances.db");
+    }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
 

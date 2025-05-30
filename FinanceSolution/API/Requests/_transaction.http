@@ -1,27 +1,46 @@
-### GET LISTAR TODAS AS TRANSACOES
+### ============================
+### TRANSAÇÕES
+### ============================
+
+### [GET] Listar todas as transações com categorias
 GET http://localhost:5000/api/transactions
 
 
+###
+
+### [GET] Obter transação por ID
+GET http://localhost:5000/api/transactions/1
 
 
-### GET LISTAR SOMENTE AS TRANSÇÃO DE UM USUARIO ESPECÍFICO
-GET http://localhost:5000/api/transactions/user/1
+###
 
-
-### POST cadastrar uma transacao
-
+### [POST] Criar nova transação
 POST http://localhost:5000/api/transactions
 Content-Type: application/json
 
 {
-  "description": "Iphone 14",
-  "amount": 7000.00,
-  "date": "2025-04-25T00:00:00",
-  "type": "Saida",
-  "categoryId": 2,
-  "UserId": 1  
+  "description": "Curso de inglês",
+  "amount": 200.00,
+  "date": "2025-05-30T00:00:00",
+  "type": "Saída",
+  "categoryId": 1
 }
 
-### DELETE da transacao id e depois id do user
+###
 
-DELETE http://localhost:5000/api/transactions/4/user/1
+### [PUT] Atualizar transação existente (ID = 1)
+PUT http://localhost:5000/api/transactions/1
+Content-Type: application/json
+
+{
+  "description": "Curso de inglês - atualização",
+  "amount": 180.00,
+  "date": "2025-05-30T00:00:00",
+  "type": "Saída",
+  "categoryId": 1
+}
+
+###
+
+### [DELETE] Remover uma transação por ID
+DELETE http://localhost:5000/api/transactions/1
