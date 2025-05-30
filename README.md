@@ -44,6 +44,7 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 ```bash
 git clone https://github.com/ojeanfeli-pe/person_finance.git
 cd person_finance
+code .
 ```
 ### 2. Instale as dependências
 Certifique-se de ter o **.NET SDK** instalado.
@@ -77,9 +78,9 @@ Execute o comando para aplicar as migrações (se existir uma pasta `Migrations`
 dotnet run
 ```
 
-#### Será gerada a porta: https://localhost:5001 para realizar as requisições.
+#### Será gerada a porta: https://localhost:5000 para realizar as requisições.
 
-As requisições podem ser feitas pelo [Swagger](https://localhost:5001/swagger), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
+As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/index.html), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
 
 ---
 
@@ -101,6 +102,8 @@ As requisições podem ser feitas pelo [Swagger](https://localhost:5001/swagger)
 - │   └── _users.http  
 - │  
 - ├── **Program.cs**  
+
+![image](https://github.com/user-attachments/assets/1e95270c-5238-4850-9d03-3ea6283d52cf)
 
 --- 
 ## 👨‍💻 Desenvolvedores
