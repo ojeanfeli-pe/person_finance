@@ -37,7 +37,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-
 // CATEGORIAS
 
 // Lista todas as categorias cadastradas
@@ -60,6 +59,7 @@ app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] App
     ctx.SaveChanges();                // Salva no banco de dados
     return Results.Created($"/api/categories/{category.Id}", category); // Retorna o recurso criado
 });
+
 
 // DELETE /api/categories/{id}
 // Exclui uma categoria pelo ID
@@ -140,18 +140,18 @@ app.MapPost("/api/transactions", ([FromBody] Transaction transaction, [FromServi
 
 // PUT /api/transactions/{id}
 // Atualiza uma transação existente
-app.MapPut("/api/transactions/{id}", ([FromRoute] int id, [FromBody] Transaction input, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/transactions/{id}", ([FromRoute] int id, [FromBody] Transaction t, [FromServices] AppDataContext ctx) =>
 {
     var transaction = ctx.Transactions.Find(id); // Busca a transação
     if (transaction == null)
         return Results.NotFound("Transação não encontrada.");
 
     // Atualiza os dados da transação
-    transaction.Description = input.Description;
-    transaction.Amount = input.Amount;
-    transaction.Date = input.Date;
-    transaction.Type = input.Type;
-    transaction.CategoryId = input.CategoryId;
+    transaction.Description = t.Description;
+    transaction.Amount = t.Amount;
+    transaction.Date = t.Date;
+    transaction.Type = t.Type;
+    transaction.CategoryId = t.CategoryId;
 
     ctx.SaveChanges(); // Salva no banco
     return Results.Ok(transaction); // Retorna a transação atualizada
