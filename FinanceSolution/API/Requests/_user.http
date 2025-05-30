@@ -7,13 +7,8 @@ POST http://localhost:5000/api/users/register
 Content-Type: application/json
 
 {
-<<<<<<< HEAD:FinanceSolution/API/_user.http
-    "Name": "Zelaide",
+    "Name": "Jean",
     "Password": "1234"
-=======
-    "Name": "pablo",
-    "Password": "2003"
->>>>>>> 5afe16edd41948e3af7b710a15758f655e2d3b94:FinanceSolution/API/Requests/_user.http
 }
 
 ### PUT atualizar o usuario
@@ -22,13 +17,8 @@ PUT http://localhost:5000/api/users/3
 Content-Type: application/json
 
 {
-<<<<<<< HEAD:FinanceSolution/API/_user.http
     "Name": "Anabelle",
     "Password": "12345"
-=======
-    "Name": "pablo",
-    "Password": "2004"
->>>>>>> 5afe16edd41948e3af7b710a15758f655e2d3b94:FinanceSolution/API/Requests/_user.http
 }
 
 ### POST LOGIN DO USUARIO
@@ -37,13 +27,8 @@ POST  http://localhost:5000/api/users/login
 Content-Type: application/json
 
 {
-<<<<<<< HEAD:FinanceSolution/API/_user.http
-    "Name": "Zelaide",
+    "Name": "Jean",
     "Password": "1234"
-=======
-    "Name": "pablo",
-    "Password": "2004"
->>>>>>> 5afe16edd41948e3af7b710a15758f655e2d3b94:FinanceSolution/API/Requests/_user.http
 }
 
 
