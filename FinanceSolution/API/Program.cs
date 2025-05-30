@@ -37,11 +37,9 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-// =============================================
-// CATEGORIAS
-// =============================================
 
-// GET /api/categories
+// CATEGORIAS
+
 // Lista todas as categorias cadastradas
 app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
 {
@@ -55,7 +53,6 @@ app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
     return Results.Ok(categories); // Retorna a lista de categorias
 });
 
-// POST /api/categories
 // Cadastra uma nova categoria
 app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
 {
@@ -78,9 +75,7 @@ app.MapDelete("/api/categories/{id}", ([FromRoute] int id, [FromServices] AppDat
 });
 
 
-// =============================================
 // TRANSAÇÕES
-// =============================================
 
 // GET /api/transactions
 // Lista todas as transações com suas categorias
@@ -140,7 +135,7 @@ app.MapPost("/api/transactions", ([FromBody] Transaction transaction, [FromServi
 
     ctx.Transactions.Add(transaction); // Adiciona a transação
     ctx.SaveChanges();                 // Salva no banco
-    return Results.Created($"/api/transactions/{transaction.Id}", transaction);
+    return Results.Ok("Transação cadastrada com sucesso");
 });
 
 // PUT /api/transactions/{id}

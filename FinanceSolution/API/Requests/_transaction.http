@@ -1,6 +1,4 @@
-### ============================
 ### TRANSAÇÕES
-### ============================
 
 ### [GET] Listar todas as transações com categorias
 GET http://localhost:5000/api/transactions
@@ -9,7 +7,7 @@ GET http://localhost:5000/api/transactions
 ###
 
 ### [GET] Obter transação por ID
-GET http://localhost:5000/api/transactions/1
+GET http://localhost:5000/api/transactions/2
 
 
 ###
@@ -21,7 +19,6 @@ Content-Type: application/json
 {
   "description": "Curso de inglês",
   "amount": 200.00,
-  "date": "2025-05-30T00:00:00",
   "type": "Saída",
   "categoryId": 1
 }
@@ -43,4 +40,4 @@ Content-Type: application/json
 ###
 
 ### [DELETE] Remover uma transação por ID
-DELETE http://localhost:5000/api/transactions/1
+DELETE http://localhost:5000/api/transactions/6
