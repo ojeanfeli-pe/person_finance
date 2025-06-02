@@ -12,7 +12,7 @@ function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/pages/transacoes/CadastrarTransacao">
+                            <Link to="/pages/transacoes/cadastrar">
                                 Cadastrar trasações
                             </Link>
                         </li>
