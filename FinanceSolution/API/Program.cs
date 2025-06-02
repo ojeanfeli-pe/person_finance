@@ -42,22 +42,21 @@ app.UseSwaggerUI();
 // Lista todas as categorias cadastradas
 app.MapGet("/api/categories", ([FromServices] AppDataContext ctx) =>
 {
-    var categories = ctx.Categories
-        .Select(c => new { c.Id, c.Name }) // Seleciona apenas os campos necessários
-        .ToList();
+    var categories = ctx.Categories;
 
-    if (!categories.Any())
-        return Results.NotFound("Nenhuma categoria encontrada.");
+    if (ctx.Categories.Any()){
+        return Results.Ok(categories.ToList()); // Retorna a lista de categorias
+    }
 
-    return Results.Ok(categories); // Retorna a lista de categorias
+    return Results.NotFound(); 
 });
 
 // Cadastra uma nova categoria
 app.MapPost("/api/categories", ([FromBody] Category category, [FromServices] AppDataContext ctx) =>
 {
-    ctx.Categories.Add(category);      // Adiciona a nova categoria ao contexto
-    ctx.SaveChanges();                // Salva no banco de dados
-    return Results.Created($"/api/categories/{category.Id}", category); // Retorna o recurso criado
+    ctx.Categories.Add(category);// Adiciona a nova categoria ao contexto
+    ctx.SaveChanges();// Salva no banco de dados
+    return Results.Created($"/api/categories/{category.Id}", category); // Retorna a categoria criada 
 });
 
 
