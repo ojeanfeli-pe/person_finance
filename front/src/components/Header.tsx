@@ -7,7 +7,7 @@ function Header() {
             <nav>
                 <div >Transações</div>
                         <li>
-                            <Link to="/pages/transacoes/ListarTransacoes">
+                            <Link to="/pages/transacoes/listar">
                                 Lista de trasações
                             </Link>
                         </li>
