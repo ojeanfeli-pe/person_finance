@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configura o contexto do banco de dados (SQLite)
 builder.Services.AddDbContext<AppDataContext>();
 
+//adicionaod o cors
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -41,7 +42,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-//ativando o cours pois estava sem...
+
+//ativando o cors...
 app.UseCors();
 
 // Ativa o Swagger na aplicação
