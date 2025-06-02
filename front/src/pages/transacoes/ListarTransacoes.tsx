@@ -1,45 +1,83 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Transacao } from "../../models/Transacao";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 function ListarTransacoes() {
-  const [transacoes, setTransacoes] = useState<Transacao[]>([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/transactions")
-      .then(res => res.json())
-      .then(data => setTransacoes(data))
-      .catch(err => console.error(err));
-  }, []);
+    const [transacoes, setTransacao] = useState<Transacao[]>([]);
 
-  return (
-    <div>
-      <h1>Lista de Transações</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Tipo</th>
-            <th>Categoria</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transacoes.map(t => (
-            <tr key={t.id}>
-              <td>{t.id}</td>
-              <td>{t.description}</td>
-              <td>{t.amount.toFixed(2)}</td>
-              <td>{new Date(t.date).toLocaleDateString()}</td>
-              <td>{t.type}</td>
-              <td>{t.category?.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+    useEffect(() => {
+        carregarTransacoes();
+    }, []);
+
+    function carregarTransacoes() {
+        axios.get("http://localhost:5000/api/transactions")
+        .then( (response: { data: SetStateAction<Transacao[]>; }) =>{
+            setTransacao(response.data);
+            console.table(response.data);
+        })
+        .catch( () => {
+            alert("error");
+        });
+    }
+
+    function remover(id: string) {
+        axios.delete(`http://localhost:5000/api/transactions/${id}`)
+        .then( () => {
+            alert("Produto removido com sucesso");
+            carregarProdutos();
+        })
+        .catch( () => 
+            alert("Não foi possivel remover o produto")
+        )
+    }
+
+    return (
+        <div>
+            <h1>Lista de Produtos</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                       <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {transacoes.map((t) => (
+                        <tr key={t.id}>
+                            <td>{t.id}</td>
+                            <td>{t.description}</td>
+                            <td>{t.amount}</td>
+                            <td>{new Date(t.date).toLocaleDateString('pt-BR')}</td>
+                            <td>{t.type}</td>
+                            <td>{t.category.name}</td>
+                            <td>
+                                <button className="remover"
+                                        onClick={() => remover(t.id)}>
+                                    Remover
+                                </button>
+                                <Link to={`/pages/produtos/alterar/${t.id}`}>
+                                    Alterar
+                                </Link>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )
+
+};
 
 export default ListarTransacoes;
+function carregarProdutos() {
+    throw new Error("Function not implemented.");
+}
+

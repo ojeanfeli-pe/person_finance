@@ -8,7 +8,6 @@ function App() {
     <div>
       <BrowserRouter>
         <Header />
-        
         <Routes>
           <Route path="/" element={<ListarTransacoes />} />
           <Route path="/pages/transacoes/listar" element={<ListarTransacoes />} />

@@ -1,7 +1,7 @@
 import { Categoria } from "./Categoria";
 
 export interface Transacao {
-  id: number;
+  id: string;
   description: string;
   amount: number;
   date: string; // ISO string
