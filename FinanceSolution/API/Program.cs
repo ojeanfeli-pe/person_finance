@@ -9,6 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Configura o contexto do banco de dados (SQLite)
 builder.Services.AddDbContext<AppDataContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Adiciona suporte para documentação Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -31,6 +41,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+//ativando o cours pois estava sem...
+app.UseCors();
 
 // Ativa o Swagger na aplicação
 app.UseSwagger();

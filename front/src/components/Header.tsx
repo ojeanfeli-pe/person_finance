@@ -4,9 +4,8 @@ function Header() {
 
     return (
         <header>
-            <nav className="navbar">
-                <div className="logo">Transações</div>
-                    <ul className="nav-links">
+            <nav>
+                <div >Transações</div>
                         <li>
                             <Link to="/pages/transacoes/ListarTransacoes">
                                 Lista de trasações
@@ -17,7 +16,6 @@ function Header() {
                                 Cadastrar trasações
                             </Link>
                         </li>
-                    </ul>
                 </nav>
         </header>
     )

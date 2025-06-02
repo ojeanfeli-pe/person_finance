@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function ListarTransacoes() {
 
-    const [transacoes, setTransacao] = useState<Transacao[]>([]);
+    const [transacoes, setTransacoes] = useState<Transacao[]>([]);
 
     useEffect(() => {
         carregarTransacoes();
@@ -15,7 +15,7 @@ function ListarTransacoes() {
     function carregarTransacoes() {
         axios.get("http://localhost:5000/api/transactions")
         .then( (response: { data: SetStateAction<Transacao[]>; }) =>{
-            setTransacao(response.data);
+            setTransacoes(response.data);
             console.table(response.data);
         })
         .catch( () => {
@@ -27,7 +27,7 @@ function ListarTransacoes() {
         axios.delete(`http://localhost:5000/api/transactions/${id}`)
         .then( () => {
             alert("Produto removido com sucesso");
-            carregarProdutos();
+            carregarTransacoes();
         })
         .catch( () => 
             alert("Não foi possivel remover o produto")
@@ -63,9 +63,6 @@ function ListarTransacoes() {
                                         onClick={() => remover(t.id)}>
                                     Remover
                                 </button>
-                                <Link to={`/pages/produtos/alterar/${t.id}`}>
-                                    Alterar
-                                </Link>
                             </td>
                         </tr>
                     ))}
@@ -77,7 +74,4 @@ function ListarTransacoes() {
 };
 
 export default ListarTransacoes;
-function carregarProdutos() {
-    throw new Error("Function not implemented.");
-}
 

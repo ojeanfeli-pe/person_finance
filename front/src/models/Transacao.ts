@@ -4,7 +4,7 @@ export interface Transacao {
   id: string;
   description: string;
   amount: number;
-  date: string; // ISO string
+  date: Date;
   type: string;
   category: Categoria;
   categoryId: number;
