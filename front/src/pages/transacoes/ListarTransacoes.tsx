@@ -20,7 +20,7 @@ function ListarTransacoes() {
             console.table(response.data);
         })
         .catch( () => {
-            alert("error");
+            
         });
     }
 
@@ -28,7 +28,7 @@ function ListarTransacoes() {
         axios.delete(`http://localhost:5000/api/transactions/${id}`)
         .then( () => {
             alert("Produto removido com sucesso");
-            carregarTransacoes();
+            setTransacoes((prev) => prev.filter(t => t.id !== id));
         })
         .catch( () => 
             alert("Não foi possivel remover o produto")

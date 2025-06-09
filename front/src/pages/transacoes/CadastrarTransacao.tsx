@@ -51,7 +51,7 @@ function CadastrarTransacao() {
       axios.put(`http://localhost:5000/api/transactions/${id}`, novaTransacao)
         .then(() => {
           alert("Transação atualizada com sucesso!");
-          navigate("/transacoes/listar");
+          navigate("/pages/transacoes/listar");
         })
         .catch(() => alert("Erro ao atualizar transação"));
     } else {
@@ -59,7 +59,7 @@ function CadastrarTransacao() {
       axios.post("http://localhost:5000/api/transactions", novaTransacao)
         .then(() => {
           alert("Transação cadastrada com sucesso!");
-          navigate("/transacoes/listar");
+          navigate("/pages/transacoes/listar");
         })
         .catch(() => alert("Erro ao cadastrar transação"));
     }
