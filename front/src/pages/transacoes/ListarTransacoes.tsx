@@ -2,6 +2,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Transacao } from "../../models/Transacao";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import '../../transacao.css';
 
 
 function ListarTransacoes() {
@@ -35,7 +36,7 @@ function ListarTransacoes() {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Lista de Produtos</h1>
 
             <table>

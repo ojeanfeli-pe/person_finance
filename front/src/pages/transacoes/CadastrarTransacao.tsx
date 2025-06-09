@@ -4,6 +4,10 @@ import { NovaTransacao } from "../../models/NovaTransacao";
 import { useNavigate, useParams } from "react-router-dom";
 import { Categoria } from "../../models/Categoria";
 import { Transacao } from "../../models/Transacao";
+import '../../transacao.css';
+
+
+
 
 function CadastrarTransacao() {
   const [descricao, setDescricao] = useState("");
@@ -12,16 +16,16 @@ function CadastrarTransacao() {
   const [categoriaId, setCategoriaId] = useState(0);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const navigate = useNavigate();
-  const { id } = useParams(); // <-- Pega o ID da URL, se existir
+  const { id } = useParams(); 
 
-  // Carrega categorias
+  
   useEffect(() => {
     axios.get("http://localhost:5000/api/categories")
       .then((response) => setCategorias(response.data))
       .catch(() => alert("Erro ao carregar categorias"));
   }, []);
 
-  // Se for edição, carrega os dados da transação
+ 
   useEffect(() => {
     if (id) {
       axios.get(`http://localhost:5000/api/transactions/${id}`)
@@ -47,7 +51,6 @@ function CadastrarTransacao() {
     };
 
     if (id) {
-      // Atualiza transação existente
       axios.put(`http://localhost:5000/api/transactions/${id}`, novaTransacao)
         .then(() => {
           alert("Transação atualizada com sucesso!");
@@ -55,7 +58,7 @@ function CadastrarTransacao() {
         })
         .catch(() => alert("Erro ao atualizar transação"));
     } else {
-      // Cria nova transação
+      
       axios.post("http://localhost:5000/api/transactions", novaTransacao)
         .then(() => {
           alert("Transação cadastrada com sucesso!");
@@ -66,7 +69,7 @@ function CadastrarTransacao() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>{id ? "Editar Transação" : "Cadastrar Nova Transação"}</h1>
       <form onSubmit={handleSubmit}>
         <div>
