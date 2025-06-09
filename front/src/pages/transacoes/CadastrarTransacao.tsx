@@ -4,10 +4,7 @@ import { NovaTransacao } from "../../models/NovaTransacao";
 import { useNavigate, useParams } from "react-router-dom";
 import { Categoria } from "../../models/Categoria";
 import { Transacao } from "../../models/Transacao";
-import '../../transacao.css';
-
-
-
+import '../../styles/transacao.css';
 
 function CadastrarTransacao() {
   const [descricao, setDescricao] = useState("");
@@ -93,8 +90,8 @@ function CadastrarTransacao() {
         <div>
           <label>Tipo:</label>
           <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
-            <option value="income">Entrada</option>
-            <option value="expense">Saída</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Saida">Saída</option>
           </select>
         </div>
         <div>

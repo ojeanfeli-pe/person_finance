@@ -2,8 +2,8 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Transacao } from "../../models/Transacao";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import '../../transacao.css';
-
+import '../../styles/transacao.css';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 function ListarTransacoes() {
 
@@ -37,7 +37,9 @@ function ListarTransacoes() {
 
     return (
         <div className="container">
-            <h1>Lista de Produtos</h1>
+            <h1>
+                Lista de Produtos
+            </h1>
 
             <table>
                 <thead>
@@ -62,11 +64,12 @@ function ListarTransacoes() {
                             <td>
                                 <button className="remover"
                                         onClick={() => remover(t.id)}>
-                                    Remover
+                                {FaTrash({ style: { marginRight: '5px' } })}
                                 </button>
-                                <Link to={`/cadastrar-transacao/${t.id}`}>
+
+                                <Link to={`/atualizar-transacao/${t.id}`}>
                                     <button className="editar">
-                                        Editar
+                                    {FaEdit({ style: { marginRight: '5px' } })}
                                     </button>
                                 </Link>
                             </td>
