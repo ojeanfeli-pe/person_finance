@@ -19,5 +19,5 @@ function App() {
     </div>
   );
 }
-//4 - OBRIGATORIAMENTE o componente DEVE ser exportado
+
 export default App;
