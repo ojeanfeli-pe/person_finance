@@ -63,6 +63,11 @@ function ListarTransacoes() {
                                         onClick={() => remover(t.id)}>
                                     Remover
                                 </button>
+                                <Link to={`/cadastrar-transacao/${t.id}`}>
+                                    <button className="editar">
+                                        Editar
+                                    </button>
+                                </Link>
                             </td>
                         </tr>
                     ))}
