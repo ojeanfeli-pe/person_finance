@@ -11,6 +11,11 @@ function Header() {
           Finanças Pessoais</h2>
         <ul className="nav-lista">
           <li>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+          </li>
+          <li>
             <Link to="/pages/transacoes/listar" className="nav-link">
               Lista de Transações
             </Link>

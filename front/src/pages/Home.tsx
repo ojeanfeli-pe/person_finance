@@ -6,7 +6,7 @@ export default function Home() {
     <div className="home-container">
       <h1>Seja bem-vindo à sua página de Finanças Pessoais</h1>
       <p>Organize seus gastos, visualize suas transações e mantenha o controle!</p>
-      <Link to="/pages/transacoes/cadastrar">
+      <Link to="/pages/transacoes/listar">
         <button className="home-button">Abrir sua agenda</button>
       </Link>
     </div>

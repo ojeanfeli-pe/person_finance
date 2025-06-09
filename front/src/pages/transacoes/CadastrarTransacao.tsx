@@ -9,20 +9,19 @@ import '../../styles/transacao.css';
 function CadastrarTransacao() {
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState(0);
-  const [tipo, setTipo] = useState("income");
+  const [tipo, setTipo] = useState("Entrada");
   const [categoriaId, setCategoriaId] = useState(0);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const navigate = useNavigate();
   const { id } = useParams(); 
 
-  
   useEffect(() => {
     axios.get("http://localhost:5000/api/categories")
       .then((response) => setCategorias(response.data))
       .catch(() => alert("Erro ao carregar categorias"));
   }, []);
 
- 
+
   useEffect(() => {
     if (id) {
       axios.get(`http://localhost:5000/api/transactions/${id}`)
@@ -31,14 +30,31 @@ function CadastrarTransacao() {
           setDescricao(transacao.description);
           setValor(transacao.amount);
           setTipo(transacao.type);
-          setCategoriaId(transacao.categoryId);
+          setCategoriaId(transacao.categoryId); 
         })
         .catch(() => alert("Erro ao carregar transação"));
     }
   }, [id]);
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+   
+    if (descricao.trim().length < 3) {
+      alert("A descrição deve conter pelo menos 3 caracteres.");
+      return;
+    }
+
+    if (valor < 0) {
+      alert("O valor não pode ser negativo.");
+      return;
+    }
+
+    if (categoriaId === 0) {
+      alert("Por favor, selecione uma categoria.");
+      return;
+    }
 
     const novaTransacao: NovaTransacao = {
       description: descricao,
@@ -55,7 +71,6 @@ function CadastrarTransacao() {
         })
         .catch(() => alert("Erro ao atualizar transação"));
     } else {
-      
       axios.post("http://localhost:5000/api/transactions", novaTransacao)
         .then(() => {
           alert("Transação cadastrada com sucesso!");
@@ -84,6 +99,8 @@ function CadastrarTransacao() {
             type="number"
             value={valor}
             onChange={(e) => setValor(parseFloat(e.target.value))}
+            min={0}
+            step="0.01"
             required
           />
         </div>
@@ -91,7 +108,7 @@ function CadastrarTransacao() {
           <label>Tipo:</label>
           <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
             <option value="Entrada">Entrada</option>
-            <option value="Saida">Saída</option>
+            <option value="Saída">Saída</option>
           </select>
         </div>
         <div>
@@ -103,7 +120,9 @@ function CadastrarTransacao() {
           >
             <option value={0}>Selecione</option>
             {categorias.map((cat) => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
             ))}
           </select>
         </div>
