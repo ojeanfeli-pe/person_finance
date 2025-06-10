@@ -1,4 +1,3 @@
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f4;
@@ -6,7 +5,6 @@ body {
   padding: 2rem;
   color: #333;
 }
-
 
 .container {
   background: #ffffff;
@@ -17,13 +15,11 @@ body {
   margin: 2rem auto;
 }
 
-
 h1 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #2c3e50;
 }
-
 
 form div {
   margin-bottom: 1rem;
@@ -90,7 +86,6 @@ tr:hover {
   background-color: #f2f2f2;
 }
 
-
 button.remover {
   background-color: #e74c3c;
   margin-right: 0.5rem;
@@ -106,6 +101,40 @@ button.editar {
 
 button.editar:hover {
   background-color: #d35400;
+}
+
+/* ✅ BARRA DE TOTAIS — fora do @media! */
+.resumo-financeiro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.resumo-box {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+}
+
+.resumo-entrada {
+  border-color: green;
+  color: green;
+}
+
+.resumo-saida {
+  border-color: red;
+  color: red;
+}
+
+.resumo-total {
+  border-color: #333;
+  color: #333;
 }
 
 /* Responsivo */
@@ -138,5 +167,3 @@ button.editar:hover {
     text-align: left;
   }
 }
-
-
