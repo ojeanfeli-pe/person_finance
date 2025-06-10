@@ -65,7 +65,12 @@ function ListarTransacoes() {
                     <tr key={t.id}>
                         <td>{t.id}</td>
                         <td>{t.description}</td>
-                        <td>{t.amount}</td>
+                        <td>
+                            {new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            }).format(Number(t.amount))}
+                            </td>
                         <td>{new Date(t.date).toLocaleDateString('pt-BR')}</td>
                         <td>{t.type}</td>
                         <td>{t.category.name}</td>

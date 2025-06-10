@@ -100,8 +100,8 @@ app.MapGet("/api/transactions", ([FromServices] AppDataContext ctx) =>
         {
             t.Id,
             t.Description,
-            t.Amount,
-            t.Date,
+            Amount = t.Amount, // Formata o valor como R$100,00
+            Date = t.Date.ToString("dd/MM/yyyy HH:mm"), // Opcional: formata a data
             t.Type,
             Category = new { t.Category.Id, t.Category.Name }
         })
