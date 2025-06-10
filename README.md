@@ -11,9 +11,10 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 
 ## ✨ Funcionalidades Principais
 
-### 👤 **Autenticação Segura**
-- 🔑 Cadastro e login de usuários
-- 🛡️ Criptografia SHA256 para proteção de senhas
+### 💻 **Frontend (React)**
+- 📄 **Listagem de transações
+- 🧾 **Cadastro e edição de transações
+- 🧭 **Navegação com React Router
 
 ### 💳 **Gestão Financeira**
 - ✅ **CRUD completo de transações** (entradas e saídas)
@@ -31,19 +32,21 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 | Categoria        | Tecnologias                                                 |
 |-----------------|-------------------------------------------------------------|
 | **Backend** | **.NET**, **ASP.NET Core Minimal APIs** |
-| **Banco** | **Entity Framework Core** (Code First)                     |
-| **Autenticação**| **SHA256** para hash de senhas                             |
+| **FrontEnd** | **React**, **React.Js + TypeScript** |
+| **Banco** | **Entity Framework Core** (Code First) |
 | **Documentação**| **Swagger UI** |
 | **Versionamento**| **Git** + **GitHub** |
 ---
 
-## 🚀 Como Rodar o Projeto Localmente
+## 🚀 Como Rodar o Projeto Localmente (Back-End)
 
 ### 1. Clone o repositório
 
 ```bash
 git clone https://github.com/ojeanfeli-pe/person_finance.git
 cd person_finance
+cd FinanceSolution
+cd API
 code .
 ```
 ### 2. Instale as dependências
@@ -83,8 +86,23 @@ dotnet run
 As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/index.html), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
 
 ---
+## 🚀 Como Rodar o visual do Projeto (Front-End)
 
-## 📂 Estrutura do Projeto
+### 1. Baixar o Node.js e o NPM
+
+ https://nodejs.org/pt
+
+ ### 2. Abrir a aplicação e instalar dependências e iniciar o Front
+
+```bash
+cd person_finance
+cd front
+npm install - Vai intalar todas as dependências necessárias
+npm start - iniciar o front
+```
+
+
+## 📂 Estrutura do Projeto Back-End
 
 - ├── **Data**
 - │   └── AppDataContext.cs  
@@ -102,6 +120,29 @@ As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/i
 - │   └── _users.http  
 - │  
 - ├── **Program.cs**  
+
+## 📂 Estrutura do Projeto Front-End
+├── src
+└── - ├── **components**
+    - │   └── Button.tsx  
+    - │   └── Header.tsx
+    - ├── **Models**  
+    - │    └── Categoria.ts
+    - │     └── NovaTransacao.ts
+    - │     └── Transacao.ts
+    - ├── **pages**  
+    - │   ├── trasacoes
+    - │          └── CadastrarTransacao.tsx
+    - │          └── ListarTransacoes.tsx
+    - │   ├── Home.tsx
+    - │── **styles**     
+    - │      └── App.css
+    - │      └── home.css
+    - │      └── index.css
+    - │      └── transacao.css
+    - │      └── Header.css
+    - │── **App.tsx**    
+    - ├── **index.tsx** 
 
 ![image](https://github.com/user-attachments/assets/1e95270c-5238-4850-9d03-3ea6283d52cf)
 
