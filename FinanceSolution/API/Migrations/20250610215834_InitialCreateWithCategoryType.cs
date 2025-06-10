@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTransationsCategoryRelation : Migration
+    public partial class InitialCreateWithCategoryType : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,8 @@ namespace API.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Type = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,15 +52,19 @@ namespace API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Necessidades" },
-                    { 2, "Contas" },
-                    { 3, "Mercado" },
-                    { 4, "Aluguel" },
-                    { 5, "Restaurante" },
-                    { 6, "Assinaturas" }
+                    { 1, "Pagamento", "entrada" },
+                    { 2, "Recebidos", "entrada" },
+                    { 3, "Vale alimentação", "entrada" },
+                    { 4, "Necessidades", "saida" },
+                    { 5, "Contas", "saida" },
+                    { 6, "Mercado", "saida" },
+                    { 7, "Aluguel", "saida" },
+                    { 8, "Restaurante", "saida" },
+                    { 9, "Assinaturas", "saida" },
+                    { 10, "Educação", "saida" }
                 });
 
             migrationBuilder.CreateIndex(

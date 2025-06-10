@@ -13,15 +13,16 @@ function CadastrarTransacao() {
   const [categoriaId, setCategoriaId] = useState(0);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { id } = useParams();
 
+  // Carrega todas as categorias da API
   useEffect(() => {
     axios.get("http://localhost:5000/api/categories")
       .then((response) => setCategorias(response.data))
       .catch(() => alert("Erro ao carregar categorias"));
   }, []);
 
-
+  // Se estiver editando, carrega a transação existente
   useEffect(() => {
     if (id) {
       axios.get(`http://localhost:5000/api/transactions/${id}`)
@@ -30,17 +31,16 @@ function CadastrarTransacao() {
           setDescricao(transacao.description);
           setValor(transacao.amount);
           setTipo(transacao.type);
-          setCategoriaId(transacao.categoryId); 
+          setCategoriaId(transacao.categoryId);
         })
         .catch(() => alert("Erro ao carregar transação"));
     }
   }, [id]);
 
-
+  // Lógica de envio do formulário
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-   
     if (descricao.trim().length < 3) {
       alert("A descrição deve conter pelo menos 3 caracteres.");
       return;
@@ -79,6 +79,13 @@ function CadastrarTransacao() {
         .catch(() => alert("Erro ao cadastrar transação"));
     }
   };
+
+  // Filtra categorias com base no tipo da transação
+  const categoriasFiltradas = categorias.filter(cat =>
+    tipo.toLowerCase() === "entrada"
+      ? cat.type === "entrada"
+      : cat.type === "saida"
+  );
 
   return (
     <div className="container">
@@ -119,7 +126,7 @@ function CadastrarTransacao() {
             required
           >
             <option value={0}>Selecione</option>
-            {categorias.map((cat) => (
+            {categoriasFiltradas.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name}
               </option>

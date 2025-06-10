@@ -26,6 +26,9 @@ namespace API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -34,32 +37,62 @@ namespace API.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Necessidades"
+                            Name = "Pagamento",
+                            Type = "entrada"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Contas"
+                            Name = "Recebidos",
+                            Type = "entrada"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Mercado"
+                            Name = "Vale alimentação",
+                            Type = "entrada"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Aluguel"
+                            Name = "Necessidades",
+                            Type = "saida"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Restaurante"
+                            Name = "Contas",
+                            Type = "saida"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Assinaturas"
+                            Name = "Mercado",
+                            Type = "saida"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Aluguel",
+                            Type = "saida"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Restaurante",
+                            Type = "saida"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Assinaturas",
+                            Type = "saida"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Educação",
+                            Type = "saida"
                         });
                 });
 

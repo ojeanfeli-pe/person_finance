@@ -54,7 +54,7 @@ function ListarTransacoes() {
                     Entrada: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalEntrada)}
                 </div>
                 <div className="resumo-box resumo-total">
-                    Total de Gastos: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldoFinal)}
+                    Saldo Total: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldoFinal)}
                 </div>
                 <div className="resumo-box resumo-saida">
                     Saída: {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalSaida)}

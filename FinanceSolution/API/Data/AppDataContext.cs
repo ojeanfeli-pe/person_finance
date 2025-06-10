@@ -23,12 +23,19 @@ public class AppDataContext : DbContext
 
         // Dados iniciais
         modelBuilder.Entity<Category>().HasData(
-            new Category { Id = 1, Name = "Necessidades" },
-            new Category { Id = 2, Name = "Contas" },
-            new Category { Id = 3, Name = "Mercado" },
-            new Category { Id = 4, Name = "Aluguel" },
-            new Category { Id = 5, Name = "Restaurante" },
-            new Category { Id = 6, Name = "Assinaturas" }
-        );
+        // Categorias de ENTRADA
+        new Category { Id = 1, Name = "Pagamento", Type = "entrada" },
+        new Category { Id = 2, Name = "Recebidos", Type = "entrada" },
+        new Category { Id = 3, Name = "Vale alimentação", Type = "entrada" },
+
+        // Categorias de SAÍDA
+        new Category { Id = 4, Name = "Necessidades", Type = "saida" },
+        new Category { Id = 5, Name = "Contas", Type = "saida" },
+        new Category { Id = 6, Name = "Mercado", Type = "saida" },
+        new Category { Id = 7, Name = "Aluguel", Type = "saida" },
+        new Category { Id = 8, Name = "Restaurante", Type = "saida" },
+        new Category { Id = 9, Name = "Assinaturas", Type = "saida" },
+        new Category { Id = 10, Name = "Educação", Type = "saida" }
+    );
     }
 }
