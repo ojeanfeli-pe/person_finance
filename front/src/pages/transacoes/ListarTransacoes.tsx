@@ -12,16 +12,20 @@ function ListarTransacoes() {
         carregarTransacoes();
     }, []);
 
-    function carregarTransacoes() {
-        axios.get("http://localhost:5000/api/transactions")
-            .then((response: { data: SetStateAction<Transacao[]>; }) => {
-                setTransacoes(response.data);
-                console.table(response.data);
-            })
-            .catch(() => {
-                alert("Erro ao carregar transações");
-            });
-    }
+   function carregarTransacoes() {
+  axios.get("http://localhost:5000/api/transactions")
+    .then((response) => {
+      setTransacoes(response.data);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        setTransacoes([]); // Nenhuma transação encontrada
+      } else {
+        alert("Erro ao carregar transações");
+        console.error(error);
+      }
+    });
+}
 
     function remover(id: string) {
         axios.delete(`http://localhost:5000/api/transactions/${id}`)
