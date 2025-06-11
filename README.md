@@ -12,18 +12,19 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 ## ✨ Funcionalidades Principais
 
 ### 💻 **Frontend (React)**
-- 📄 **Listagem de transações
-- 🧾 **Cadastro e edição de transações
-- 🧭 **Navegação com React Router
+- 📄 **Listagem de transações**
+- 🧾 **Cadastro e edição de transações**
+- 🧭 **Navegação com React Router**
+- 💸 **Saldo financeiro de Saida e Entrada**
 
 ### 💳 **Gestão Financeira**
-- ✅ **CRUD completo de transações** (entradas e saídas)
-- 🏷️ **Categorização de gastos** com CRUD de categorias
-- 🔍 **Filtros inteligentes** para consulta de transações por usuário
+- ✅ **CRUD completo de transações (entradas e saídas)**
+- 🏷️ **Categorização de gastos com CRUD de categorias**
+- 🔍 **Filtros sobre o saldo Total, Saida e Entrada**
 
 ### 📊 **Relatórios e Documentação**
-- 📚 Documentação automática via Swagger UI
-- ⚙️ API Minimal com endpoints bem definidos
+- 📚 **Documentação automática via Swagger UI**
+- ⚙️ **API Minimal com endpoints bem definidos**
 
 ---
 
@@ -32,11 +33,11 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 | Categoria        | Tecnologias                                                 |
 |-----------------|-------------------------------------------------------------|
 | **Backend** | **.NET**, **ASP.NET Core Minimal APIs** |
-| **FrontEnd** | **React**, **React.Js + TypeScript** |
+| **FrontEnd** |  **React.Js + TypeScript** |
 | **Banco** | **Entity Framework Core** (Code First) |
 | **Documentação**| **Swagger UI** |
 | **Versionamento**| **Git** + **GitHub** |
----
+
 
 ## 🚀 Como Rodar o Projeto Localmente (Back-End)
 
@@ -83,7 +84,7 @@ dotnet run
 
 #### Será gerada a porta: https://localhost:5000 para realizar as requisições.
 
-As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/index.html), ou pelos arquivos de requisição que foram colocados dentro do projeto: `_users.http`, `_functions.http`, `_categories.http`.
+As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/index.html), ou pelos arquivos de requisição que foram colocados dentro do projeto:  `_functions.http`, `_categories.http`.
 
 ---
 ## 🚀 Como Rodar o visual do Projeto (Front-End)
@@ -92,12 +93,15 @@ As requisições podem ser feitas pelo [Swagger](http://localhost:5000/swagger/i
 
  https://nodejs.org/pt
 
- ### 2. Abrir a aplicação e instalar dependências e iniciar o Front
+ ### 2. Abrir a aplicação no repositório e instalar dependências e iniciar o Front
+
+ **No mesmo repositório do Git "https://github.com/ojeanfeli-pe/person_finance.git"**
 
 ```bash
 cd person_finance
 cd front
-npm install - Vai intalar todas as dependências necessárias
+npm install - Vai intalar as dependências necessárias
+npm install react-route-dom - Intalar o dom
 npm start - iniciar o front
 ```
 
@@ -112,39 +116,45 @@ npm start - iniciar o front
 - ├── **Models**  
 - │   ├── Category.cs  
 - │   ├── Transaction.cs  
-- │   └── User.cs  
 - │  
 - ├── **Requests**  
 - │   ├── _categories.http  
 - │   ├── _transactions.http  
-- │   └── _users.http  
 - │  
-- ├── **Program.cs**  
+- ├── **Program.cs** 
+
+![Image](https://github.com/user-attachments/assets/e740f4d1-86e5-4286-874b-97b1450b540c)
 
 ## 📂 Estrutura do Projeto Front-End
 ├── src
-└── - ├── **components**
-    - │   └── Button.tsx  
-    - │   └── Header.tsx
-    - ├── **Models**  
-    - │    └── Categoria.ts
-    - │     └── NovaTransacao.ts
-    - │     └── Transacao.ts
-    - ├── **pages**  
-    - │   ├── trasacoes
-    - │          └── CadastrarTransacao.tsx
-    - │          └── ListarTransacoes.tsx
-    - │   ├── Home.tsx
-    - │── **styles**     
-    - │      └── App.css
-    - │      └── home.css
-    - │      └── index.css
-    - │      └── transacao.css
-    - │      └── Header.css
-    - │── **App.tsx**    
-    - ├── **index.tsx** 
 
-![image](https://github.com/user-attachments/assets/1e95270c-5238-4850-9d03-3ea6283d52cf)
+└──
+├── **components**
+- │└── Button.tsx  
+- │   └── Header.tsx
+- │
+- ├── **Models**  
+- │    └── Categoria.ts
+- │     └── NovaTransacao.ts
+- │     └── Transacao.ts
+- │
+- ├── **pages**  
+- │   ├── trasacoes
+- │          └── CadastrarTransacao.tsx
+- │          └── ListarTransacoes.tsx
+- │   ├── Home.tsx
+- │
+- │── **styles**     
+- │      └── App.css
+- │      └── home.css
+- │      └── index.css
+- │      └── transacao.css
+- │      └── Header.css
+- │
+- │── **App.tsx**    
+- ├── **index.tsx** 
+
+![Image](https://github.com/user-attachments/assets/3619e081-d02c-4ba6-9da0-140980ccf22a)
 
 --- 
 ## 👨‍💻 Desenvolvedores
