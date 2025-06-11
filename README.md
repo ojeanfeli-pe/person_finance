@@ -15,13 +15,14 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 - 📄 **Listagem de transações**
 - 🧾 **Cadastro e edição de transações**
 - 🧭 **Navegação com React Router**
-- 🔍 **Filtros sobre o saldo Total, Saida e Entrada**
+- 🔍 **Filtros sobre o saldo Total, Saída e Entrada**
 
 
 ### 💳 **Back-End Gestão Financeira**
 - ✅ **CRUD completo de transações (entradas e saídas)**
 - 🏷️ **Categorização de gastos com CRUD de categorias**
-- 💸 **Saldo financeiro de Saida e Entrada**
+- 💸 **Cálculo de saldo financeiro**
+- 🔄 **Validações de caracter,valor e categoria**
 
 ### 📊 **Relatórios e Documentação**
 - 📚 **Documentação automática via Swagger UI**
