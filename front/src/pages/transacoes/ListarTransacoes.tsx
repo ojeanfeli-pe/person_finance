@@ -19,7 +19,7 @@ function ListarTransacoes() {
     })
     .catch((error) => {
       if (error.response && error.response.status === 404) {
-        setTransacoes([]); // Nenhuma transação encontrada
+        setTransacoes([]); 
       } else {
         alert("Erro ao carregar transações");
         console.error(error);

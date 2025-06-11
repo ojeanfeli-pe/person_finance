@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Header.css";
+import "../styles/Header.css";
 import { FaWallet } from "react-icons/fa";
 
 function Header() {
