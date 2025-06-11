@@ -15,12 +15,13 @@ Este sistema tem como objetivo gerenciar finanças pessoais de forma simples e p
 - 📄 **Listagem de transações**
 - 🧾 **Cadastro e edição de transações**
 - 🧭 **Navegação com React Router**
-- 💸 **Saldo financeiro de Saida e Entrada**
+- 🔍 **Filtros sobre o saldo Total, Saida e Entrada**
 
-### 💳 **Gestão Financeira**
+
+### 💳 **Back-End Gestão Financeira**
 - ✅ **CRUD completo de transações (entradas e saídas)**
 - 🏷️ **Categorização de gastos com CRUD de categorias**
-- 🔍 **Filtros sobre o saldo Total, Saida e Entrada**
+- 💸 **Saldo financeiro de Saida e Entrada**
 
 ### 📊 **Relatórios e Documentação**
 - 📚 **Documentação automática via Swagger UI**
@@ -108,53 +109,53 @@ npm start - iniciar o front
 
 ## 📂 Estrutura do Projeto Back-End
 
-- ├── **Data**
+- ├── 📂 **Data**
 - │   └── AppDataContext.cs  
 - │  
-- ├── **Migrations**  
+- ├── 📂 **Migrations**  
 - │  
-- ├── **Models**  
+- ├── 📂 **Models**  
 - │   ├── Category.cs  
 - │   ├── Transaction.cs  
 - │  
-- ├── **Requests**  
+- ├── 📂 **Requests**  
 - │   ├── _categories.http  
 - │   ├── _transactions.http  
-- │  
-- ├── **Program.cs** 
+- │ 
+- ├── Program.cs
 
 ![Image](https://github.com/user-attachments/assets/e740f4d1-86e5-4286-874b-97b1450b540c)
 
 ## 📂 Estrutura do Projeto Front-End
-├── src
+├── 📂 src
 
 └──
-├── **components**
+├── 📂 **components**
 - │└── Button.tsx  
 - │   └── Header.tsx
 - │
-- ├── **Models**  
+- ├── 📂 **Models**  
 - │    └── Categoria.ts
 - │     └── NovaTransacao.ts
 - │     └── Transacao.ts
 - │
-- ├── **pages**  
-- │   ├── trasacoes
+- ├── 📂 **pages**  
+- │   ├── 📂 **trasacoes**
 - │          └── CadastrarTransacao.tsx
 - │          └── ListarTransacoes.tsx
 - │   ├── Home.tsx
 - │
-- │── **styles**     
+- │── 📂 **styles**     
 - │      └── App.css
 - │      └── home.css
 - │      └── index.css
 - │      └── transacao.css
 - │      └── Header.css
 - │
-- │── **App.tsx**    
-- ├── **index.tsx** 
+- │── App.tsx
+- ├── index.tsx 
 
-![Image](https://github.com/user-attachments/assets/3619e081-d02c-4ba6-9da0-140980ccf22a)
+![Image](https://github.com/user-attachments/assets/fef6f215-6c4f-4c93-8f3d-a63e7a30d1ba)
 
 --- 
 ## 👨‍💻 Desenvolvedores
